@@ -15,8 +15,11 @@ from langchain.chains import ConversationalRetrievalChain
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Step 1: Load the CSV file with recipe data
-doc_path = "data/food_recipes.csv"  # Make sure this file exists
+# Dynamically resolve the path to the CSV file
+base_dir = os.path.dirname(os.path.abspath(__file__))
+doc_path = os.path.join(base_dir, 'data', 'food_recipes.csv')
+
+# Load the CSV
 df = pd.read_csv(doc_path, encoding='utf-8', nrows=500)
 
 # Step 2: Convert each row into a Document format
